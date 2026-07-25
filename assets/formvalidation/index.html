@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Validation Form | Name, ID, Password, Age</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .form-card {
+            max-width: 550px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(0px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem 1.8rem 2.2rem 1.8rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: #1a2c3e;
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h1::before {
+            content: "📋";
+            font-size: 1.8rem;
+        }
+
+        .sub {
+            color: #4a627a;
+            border-left: 3px solid #2c7da0;
+            padding-left: 12px;
+            margin-bottom: 1.8rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e2f3f;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        label i {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 0.75rem;
+            background: #eef2f8;
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #2c5a7a;
+        }
+
+        input {
+            padding: 0.85rem 1rem;
+            font-size: 1rem;
+            border: 1.5px solid #dce5ef;
+            border-radius: 1.2rem;
+            background: #ffffff;
+            transition: 0.2s;
+            outline: none;
+            font-weight: 500;
+            color: #0f2b3b;
+        }
+
+        input:focus {
+            border-color: #2c7da0;
+            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.2);
+        }
+
+        .msg-area {
+            margin: 1rem 0 1.4rem 0;
+            padding: 0.75rem 1rem;
+            border-radius: 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            transition: 0.1s linear;
+            background: #f8fafd;
+            border: 1px solid #e2edf7;
+        }
+
+        .error-msg {
+            background-color: #fff0f0;
+            color: #c7362b;
+            border-left: 5px solid #c7362b;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .success-msg {
+            background-color: #e6f9ed;
+            color: #1e6f3f;
+            border-left: 5px solid #1e9f5a;
+            text-align: left;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            background: #2c7da0;
+            border: none;
+            padding: 0.8rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.3px;
+        }
+
+        button:hover {
+            background: #1f5e7e;
+            transform: scale(0.98);
+        }
+
+        .reset-btn {
+            background: #5e6f8d;
+        }
+
+        .reset-btn:hover {
+            background: #3e4b63;
+        }
+
+        .hint-text {
+            font-size: 0.7rem;
+            color: #6f8eaa;
+            margin-top: 0.3rem;
+            margin-left: 0.5rem;
+        }
+
+        hr {
+            margin: 0.5rem 0 0.2rem;
+            border: 0;
+            height: 1px;
+            background: #e2edf7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <h1>Register Form</h1>
+    <div class="sub">Fill all fields with correct format</div>
+
+    <div class="input-group">
+        <label>📛 Full Name <i>alphabetic only</i></label>
+        <input type="text" id="fullName" placeholder="e.g. John Smith" autocomplete="off">
+        <div class="hint-text">Only letters A-Z, a-z and spaces allowed</div>
+    </div>
+
+    <div class="input-group">
+        <label>🆔 Student ID <i>exactly 4 digits</i></label>
+        <input type="text" id="studentId" placeholder="e.g. 1234" maxlength="4" autocomplete="off">
+        <div class="hint-text">Must be 4-digit number (0000-9999)</div>
+    </div>
+
+    <div class="input-group">
+        <label>🔐 Password <i>6 chars alphanumeric</i></label>
+        <input type="password" id="password" placeholder="e.g. Abc123" autocomplete="off">
+        <div class="hint-text">Exactly 6 characters: letters & numbers only (no symbols)</div>
+    </div>
+
+    <div class="input-group">
+        <label>🎂 Age <i>15 to 35, 2 digits</i></label>
+        <input type="text" id="age" placeholder="e.g. 25" maxlength="2" autocomplete="off">
+        <div class="hint-text">Range: 15 – 35 (two digit number)</div>
+    </div>
+
+    <div class="msg-area" id="messageBox">
+        ✨ Fill in the details and click validate
+    </div>
+
+    <div class="button-group">
+        <button id="validateBtn">✅ Validate Form</button>
+        <button id="resetBtn" class="reset-btn">⟳ Reset</button>
+    </div>
+    <hr>
+    <div class="hint-text" style="text-align:center; margin-top:12px;">✔ All fields must meet the exact criteria</div>
+</div>
+
+<script>
+    (function() {
+        const nameInput = document.getElementById('fullName');
+        const idInput = document.getElementById('studentId');
+        const passwordInput = document.getElementById('password');
+        const ageInput = document.getElementById('age');
+        const messageBox = document.getElementById('messageBox');
+
+        function showError(message) {
+            messageBox.innerHTML = `⚠️ ${message}`;
+            messageBox.className = 'msg-area error-msg';
+        }
+
+        function showSuccess(message) {
+            messageBox.innerHTML = `✅ ${message}`;
+            messageBox.className = 'msg-area success-msg';
+        }
+
+        function resetMessageToNeutral() {
+            messageBox.innerHTML = `✨ Fill in the details and click validate`;
+            messageBox.className = 'msg-area';
+        }
+
+        function validateName(name) {
+            if (!name || name.trim() === "") {
+                return { valid: false, message: "Name cannot be empty." };
+            }
+            const alphabeticRegex = /^[A-Za-z\s]+$/;
+            if (!alphabeticRegex.test(name)) {
+                return { valid: false, message: "Name must contain only alphabetic characters (A-Z, a-z) and spaces." };
+            }
+            if (name.trim().length < 2) {
+                return { valid: false, message: "Name must be at least 2 characters long." };
+            }
+            return { valid: true, message: "" };
+        }
+
+        function validateID(idValue) {
+            if (idValue === "") {
+                return { valid: false, message: "ID cannot be empty." };
+            }
+            const fourDigitRegex = /^\d{4}$/;
+            if (!fourDigitRegex.test(idValue)) {
+                return { valid: false, message: "ID must be exactly 4 digits (0-9). Example: 1234" };
+            }
+            return { valid: true, message: "" };
+        }
+
+        function validatePassword(pwd) {
+            if (pwd === "") {
+                return { valid: false, message: "Password cannot be empty." };
+            }
+            const alphanumericRegex = /^[A-Za-z0-9]{6}$/;
+            if (!alphanumericRegex.test(pwd)) {
+                return { valid: false, message: "Password must be exactly 6 characters long and contain only letters (A-Z, a-z) and digits (0-9)." };
+            }
+            return { valid: true, message: "" };
+        }
+
+        function validateAge(ageStr) {
+            if (ageStr === "") {
+                return { valid: false, message: "Age cannot be empty." };
+            }
+            const twoDigitRegex = /^\d{2}$/;
+            if (!twoDigitRegex.test(ageStr)) {
+                return { valid: false, message: "Age must be exactly 2 digits (e.g., 18, 22, 30)." };
+            }
+            const ageNum = parseInt(ageStr, 10);
+            if (isNaN(ageNum)) {
+                return { valid: false, message: "Age must be a valid number." };
+            }
+            if (ageNum < 15 || ageNum > 35) {
+                return { valid: false, message: "Age must be between 15 and 35 (inclusive)." };
+            }
+            return { valid: true, message: "" };
+        }
+
+        function validateAllFields() {
+            const nameRaw = nameInput.value;
+            const idRaw = idInput.value.trim();
+            const passwordRaw = passwordInput.value;
+            const ageRaw = ageInput.value.trim();
+
+            const nameValidation = validateName(nameRaw);
+            if (!nameValidation.valid) {
+                showError(nameValidation.message);
+                nameInput.style.borderColor = "#c7362b";
+                return false;
+            } else {
+                nameInput.style.borderColor = "#dce5ef";
+            }
+
+            const idValidation = validateID(idRaw);
+            if (!idValidation.valid) {
+                showError(idValidation.message);
+                idInput.style.borderColor = "#c7362b";
+                return false;
+            } else {
+                idInput.style.borderColor = "#dce5ef";
+            }
+
+            const pwdValidation = validatePassword(passwordRaw);
+            if (!pwdValidation.valid) {
+                showError(pwdValidation.message);
+                passwordInput.style.borderColor = "#c7362b";
+                return false;
+            } else {
+                passwordInput.style.borderColor = "#dce5ef";
+            }
+
+            const ageValidation = validateAge(ageRaw);
+            if (!ageValidation.valid) {
+                showError(ageValidation.message);
+                ageInput.style.borderColor = "#c7362b";
+                return false;
+            } else {
+                ageInput.style.borderColor = "#dce5ef";
+            }
+
+            const successMsg = `All fields are perfect! Name: ${nameRaw.trim()}, ID: ${idRaw}, Age: ${ageRaw}`;
+            showSuccess(successMsg);
+            return true;
+        }
+
+        function resetForm() {
+            nameInput.value = '';
+            idInput.value = '';
+            passwordInput.value = '';
+            ageInput.value = '';
+            nameInput.style.borderColor = "#dce5ef";
+            idInput.style.borderColor = "#dce5ef";
+            passwordInput.style.borderColor = "#dce5ef";
+            ageInput.style.borderColor = "#dce5ef";
+            resetMessageToNeutral();
+        }
+
+        function handleValidationClick() {
+            validateAllFields();
+        }
+
+        function handleResetClick() {
+            resetForm();
+        }
+
+        function addLiveBorderReset() {
+            const inputs = [nameInput, idInput, passwordInput, ageInput];
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (messageBox.classList.contains('error-msg') || messageBox.classList.contains('success-msg')) {
+                        const isCurrentlyError = messageBox.classList.contains('error-msg');
+                        if (isCurrentlyError) {
+                            const nameCheck = validateName(nameInput.value);
+                            const idCheck = validateID(idInput.value.trim());
+                            const pwdCheck = validatePassword(passwordInput.value);
+                            const ageCheck = validateAge(ageInput.value.trim());
+                            if (nameCheck.valid && idCheck.valid && pwdCheck.valid && ageCheck.valid) {
+                                if (messageBox.classList.contains('error-msg')) {
+                                    resetMessageToNeutral();
+                                }
+                            } else {
+                                if (!messageBox.classList.contains('error-msg')) {
+                                } else {
+                                }
+                            }
+                        } else if (messageBox.classList.contains('success-msg')) {
+                            const nameCheck = validateName(nameInput.value);
+                            const idCheck = validateID(idInput.value.trim());
+                            const pwdCheck = validatePassword(passwordInput.value);
+                            const ageCheck = validateAge(ageInput.value.trim());
+                            if (!(nameCheck.valid && idCheck.valid && pwdCheck.valid && ageCheck.valid)) {
+                                resetMessageToNeutral();
+                            }
+                        }
+                    }
+                    if (this === nameInput) {
+                        if (validateName(nameInput.value).valid) {
+                            nameInput.style.borderColor = "#dce5ef";
+                        } else {
+                            if (nameInput.value !== "") nameInput.style.borderColor = "#ffb4a2";
+                            else nameInput.style.borderColor = "#dce5ef";
+                        }
+                    }
+                    if (this === idInput) {
+                        if (validateID(idInput.value.trim()).valid) {
+                            idInput.style.borderColor = "#dce5ef";
+                        } else {
+                            if (idInput.value.trim() !== "") idInput.style.borderColor = "#ffb4a2";
+                            else idInput.style.borderColor = "#dce5ef";
+                        }
+                    }
+                    if (this === passwordInput) {
+                        if (validatePassword(passwordInput.value).valid) {
+                            passwordInput.style.borderColor = "#dce5ef";
+                        } else {
+                            if (passwordInput.value !== "") passwordInput.style.borderColor = "#ffb4a2";
+                            else passwordInput.style.borderColor = "#dce5ef";
+                        }
+                    }
+                    if (this === ageInput) {
+                        if (validateAge(ageInput.value.trim()).valid) {
+                            ageInput.style.borderColor = "#dce5ef";
+                        } else {
+                            if (ageInput.value.trim() !== "") ageInput.style.borderColor = "#ffb4a2";
+                            else ageInput.style.borderColor = "#dce5ef";
+                        }
+                    }
+                });
+            });
+        }
+
+        function preventNonAlphaForName(e) {
+            const key = e.key;
+            if (key === "Backspace" || key === "Delete" || key === "ArrowLeft" || key === "ArrowRight" || key === "Tab" || key === " " || key === "Space") {
+                return;
+            }
+            if (key === "Enter") {
+                e.preventDefault();
+                handleValidationClick();
+                return;
+            }
+            const regex = /^[A-Za-z\s]$/;
+            if (!regex.test(key) && key.length === 1) {
+                e.preventDefault();
+            }
+        }
+
+        function restrictIdToDigits(e) {
+            const key = e.key;
+            if (key === "Backspace" || key === "Delete" || key === "ArrowLeft" || key === "ArrowRight" || key === "Tab") {
+                return;
+            }
+            if (key === "Enter") {
+                e.preventDefault();
+                handleValidationClick();
+                return;
+            }
+            if (!/^\d$/.test(key) && key.length === 1) {
+                e.preventDefault();
+            }
+            const input = e.target;
+            if (input.value.length >= 4 && !(key === "Backspace" || key === "Delete" || key === "ArrowLeft" || key === "ArrowRight")) {
+                if (!/^\d$/.test(key)) {
+                    e.preventDefault();
+                }
+                if (/^\d$/.test(key) && input.value.length === 4) {
+                    e.preventDefault();
+                }
+            }
+        }
+
+        function restrictPasswordAlphanumeric(e) {
+            const key = e.key;
+            if (key === "Backspace" || key === "Delete" || key === "ArrowLeft" || key === "ArrowRight" || key === "Tab") {
+                return;
+            }
+            if (key === "Enter") {
+                e.preventDefault();
+                handleValidationClick();
+                return;
+            }
+            if (!/^[A-Za-z0-9]$/.test(key) && key.length === 1) {
+                e.preventDefault();
+            }
+            const input = e.target;
+            if (input.value.length >= 6 && !(key === "Backspace" || key === "Delete")) {
+                if (/^[A-Za-z0-9]$/.test(key)) {
+                    e.preventDefault();
+                }
+            }
+        }
+
+        function restrictAgeToDigitsAndRange(e) {
+            const key = e.key;
+            if (key === "Backspace" || key === "Delete" || key === "ArrowLeft" || key === "ArrowRight" || key === "Tab") {
+                return;
+            }
+            if (key === "Enter") {
+                e.preventDefault();
+                handleValidationClick();
+                return;
+            }
+            if (!/^\d$/.test(key) && key.length === 1) {
+                e.preventDefault();
+            }
+            const input = e.target;
+            if (input.value.length >= 2 && !(key === "Backspace" || key === "Delete")) {
+                if (/^\d$/.test(key)) {
+                    e.preventDefault();
+                }
+            }
+        }
+
+        nameInput.addEventListener('keydown', preventNonAlphaForName);
+        idInput.addEventListener('keydown', restrictIdToDigits);
+        passwordInput.addEventListener('keydown', restrictPasswordAlphanumeric);
+        ageInput.addEventListener('keydown', restrictAgeToDigitsAndRange);
+
+        nameInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const filtered = pasted.replace(/[^A-Za-z\s]/g, '');
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const current = this.value;
+            const newValue = current.slice(0, start) + filtered + current.slice(end);
+            if (newValue.length <= 50) this.value = newValue;
+            this.dispatchEvent(new Event('input'));
+        });
+
+        idInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const filtered = pasted.replace(/\D/g, '').slice(0, 4);
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const current = this.value;
+            const newValue = current.slice(0, start) + filtered + current.slice(end);
+            if (newValue.length <= 4) this.value = newValue;
+            this.dispatchEvent(new Event('input'));
+        });
+
+        passwordInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const filtered = pasted.replace(/[^A-Za-z0-9]/g, '').slice(0, 6);
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const current = this.value;
+            const newValue = current.slice(0, start) + filtered + current.slice(end);
+            if (newValue.length <= 6) this.value = newValue;
+            this.dispatchEvent(new Event('input'));
+        });
+
+        ageInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const filtered = pasted.replace(/\D/g, '').slice(0, 2);
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const current = this.value;
+            const newValue = current.slice(0, start) + filtered + current.slice(end);
+            if (newValue.length <= 2) this.value = newValue;
+            this.dispatchEvent(new Event('input'));
+        });
+
+        document.getElementById('validateBtn').addEventListener('click', handleValidationClick);
+        document.getElementById('resetBtn').addEventListener('click', handleResetClick);
+
+        addLiveBorderReset();
+
+        window.addEventListener('load', function() {
+            resetMessageToNeutral();
+            nameInput.style.borderColor = "#dce5ef";
+            idInput.style.borderColor = "#dce5ef";
+            passwordInput.style.borderColor = "#dce5ef";
+            ageInput.style.borderColor = "#dce5ef";
+        });
+    })();
+</script>
+</body>
+</html>
