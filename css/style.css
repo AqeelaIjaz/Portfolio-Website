@@ -248,6 +248,11 @@ code{ font-family: var(--mono); background: rgba(247,239,228,0.08); padding: 1px
 .project-card h3{ font-size:1.3rem; color: var(--paper); margin-bottom:12px; }
 .project-card p{ color: var(--paper-dim); font-size:0.94rem; margin-bottom:18px; }
 .project-card__tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.project-card__link{ margin:10px 0 14px; }
+.project-card__link a{ font-family: var(--mono); font-size:0.82rem; color: var(--gold-hi); text-decoration:none; border-bottom:1px solid var(--rose-dim); padding-bottom:1px; }
+.project-card__link a:hover{ color: var(--rose); }
+.project-card--building{ opacity:0.92; border-style:dashed; }
+.status-pill{ display:inline-block; font-family:var(--mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; padding:3px 10px; border-radius:999px; border:1px solid var(--gold); color:var(--gold-hi); margin-bottom:10px; }
 .project-card__tags span{
   font-family: var(--mono); font-size:0.72rem; color: var(--muted); border:1px solid var(--line); padding:4px 10px; border-radius:999px;
 }
@@ -377,3 +382,9 @@ code{ font-family: var(--mono); background: rgba(247,239,228,0.08); padding: 1px
 /* ============ REVEAL ANIMATION ============ */
 .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.is-visible{ opacity:1; transform:none; }
+
+.group-title{
+  font-family: var(--display); font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--gold-hi); margin: 48px 0 20px; padding-top: 24px;
+  border-top: 1px solid rgba(227,168,87,0.25);
+}
